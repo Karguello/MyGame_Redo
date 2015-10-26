@@ -1,0 +1,28 @@
+.background    {   table-layout: fixed;
+                 border-spacing: 0; 
+                 background-image: url("http://s1.postimg.org/zewqxy9u7/background.png");  }
+.background td { padding: 0; }
+.lava          { background-image: url("http://s3.postimg.org/ek9985krj/lava.png");}
+.wall          { background-image: url("http://s7.postimg.org/qxb5yr613/wall.png"); }
+.actor  { position: absolute;  }
+.coin   { background-image:url("http://s30.postimg.org/ww9ddlixp/dot.png");
+        }
+.player { 
+background-image: url("http://s14.postimg.org/th8terwj1/mycharacter.png"); }
+.woin{ background:rgb(0,255,255);}
+.game {
+  overflow: hidden;
+  max-width: 900px;
+  max-height: 950px;
+  position: relative;
+}
+.lost .player {
+ background-image: url("http://s24.postimg.org/az8otsv01/mycharacterlost.png");
+}
+.won .player {
+  background-image: url("http://s22.postimg.org/v9d7wovrh/mycharacterwins.png");
+}
+.enemy {
+  background-image: url("http://s18.postimg.org/5988r4og5/enemy.jpg");
+}
+
