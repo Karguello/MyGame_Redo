@@ -2,8 +2,7 @@
 var actorChars = {
   "@": Player,
   "o": Coin, // A coin will wobble up and down
-  "=": Lava, "|": Lava, "v": Lava,  
-  "s": Enemy
+  "=": Lava, "|": Lava, "v": Lava  
 };
 
 function Level(plan) {
@@ -84,9 +83,9 @@ Player.prototype.type = "player";
 // Add a new actor type as a class
 function Coin(pos) {
   this.basePos = this.pos = pos.plus(new Vector(0.2, 0.1));
-  this.size = new Vector(0.3, 0.3);
+  this.size = new Vector(0.6, 0.6);
   // Make it go back and forth in a sine wave.
-  this.wobble = Math.random() * Math.PI * 3;
+  this.wobble = Math.random() * Math.PI * 2;
 }
 Coin.prototype.type = "coin";
 
@@ -108,25 +107,6 @@ function Lava(pos, ch) {
   }
 }
 Lava.prototype.type = "lava";
-
-
-function Enemy(pos, ch) {
-  this.pos = pos;
-  this.size = new Vector(1.7, 1);
-  if (ch == "=") {
-    // Horizontal lava
-    this.speed = new Vector(-1, -1);
-  } else if (ch == "s") {
-    // Vertical lava
-    this.speed = new Vector(9, 0);
-  } else if (ch == "v") {
-    // Drip lava. Repeat back to this pos.
-    this.speed = new Vector(1, 0);
-    this.repeatPos = pos;
-  }
-}
-Enemy.prototype.type = "enemy";
-
 
 // Helper function to easily create an element of a type provided 
 function elt(name, className) {
@@ -303,15 +283,6 @@ Lava.prototype.act = function(step, level) {
     this.speed = this.speed.times(-1);
 };
 
-Enemy.prototype.act = function(step, level) {
-  var newPos = this.pos.plus(this.speed.times(step));
-  if (!level.obstacleAt(newPos, this.size))
-    this.pos = newPos;
-  else if (this.repeatPos)
-    this.pos = this.repeatPos;
-  else
-    this.speed = this.speed.times(-1);
-};
 
 var maxStep = 0.05;
 
@@ -399,12 +370,7 @@ Level.prototype.playerTouched = function(type, actor) {
   if (type == "lava" && this.status == null) {
     this.status = "lost";
     this.finishDelay = 1;
-  } 
-  else if (type == "enemy" && this.status == null){
-     this.status = "lost"
-      this.finishDelay = 1; 
-  }
-  else if (type == "coin") {
+  } else if (type == "coin") {
     this.actors = this.actors.filter(function(other) {
       return other != actor;
     });
